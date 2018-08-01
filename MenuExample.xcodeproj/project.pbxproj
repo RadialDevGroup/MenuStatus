@@ -10,6 +10,8 @@
 		58B03F4D2110CFF900CC47EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B03F4C2110CFF900CC47EC /* AppDelegate.swift */; };
 		58B03F4F2110CFFA00CC47EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58B03F4E2110CFFA00CC47EC /* Assets.xcassets */; };
 		58B03F522110CFFA00CC47EC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58B03F502110CFFA00CC47EC /* MainMenu.xib */; };
+		58B03F5B2110EB0900CC47EC /* SlackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B03F5A2110EB0900CC47EC /* SlackService.swift */; };
+		58B03F5D2111061B00CC47EC /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B03F5C2111061B00CC47EC /* Profile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		58B03F512110CFFA00CC47EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		58B03F532110CFFA00CC47EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58B03F542110CFFA00CC47EC /* MenuExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MenuExample.entitlements; sourceTree = "<group>"; };
+		58B03F5A2110EB0900CC47EC /* SlackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlackService.swift; sourceTree = "<group>"; };
+		58B03F5C2111061B00CC47EC /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 				58B03F502110CFFA00CC47EC /* MainMenu.xib */,
 				58B03F532110CFFA00CC47EC /* Info.plist */,
 				58B03F542110CFFA00CC47EC /* MenuExample.entitlements */,
+				58B03F5A2110EB0900CC47EC /* SlackService.swift */,
+				58B03F5C2111061B00CC47EC /* Profile.swift */,
 			);
 			path = MenuExample;
 			sourceTree = "<group>";
@@ -92,6 +98,11 @@
 				TargetAttributes = {
 					58B03F482110CFF900CC47EC = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -130,6 +141,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58B03F5B2110EB0900CC47EC /* SlackService.swift in Sources */,
+				58B03F5D2111061B00CC47EC /* Profile.swift in Sources */,
 				58B03F4D2110CFF900CC47EC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
