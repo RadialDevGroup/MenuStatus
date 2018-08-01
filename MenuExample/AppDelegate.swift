@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBar = NSStatusBar.system
     var statusBarItem : NSStatusItem = NSStatusItem()
     var menu: NSMenu = NSMenu()
+    var status1MenuItem : NSMenuItem = NSMenuItem()
     var connectMenuItem : NSMenuItem = NSMenuItem()
     var quitMenuItem : NSMenuItem = NSMenuItem()
     
@@ -25,10 +26,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let slackService = SlackService()
     
     override func awakeFromNib() {
+        menu.autoenablesItems = false
+
         // add statusBarItem
         statusBarItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
         statusBarItem.menu = menu
         statusBarItem.title = "Slack Status: Sign in"
+
+        status1MenuItem.title = "Working remotely"
+        status1MenuItem.target = self
+        status1MenuItem.action = #selector(status1ItemAction)
+        status1MenuItem.keyEquivalent = ""
+        status1MenuItem.isEnabled = false
+        menu.addItem(status1MenuItem)
         
         // add menuItem to menu
         connectMenuItem.title = "Sign in"
@@ -55,17 +65,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    @objc func status1ItemAction(sender: AnyObject) {
+        NSLog("status1ItemAction called")
+        slackService.setProfile(statusText: "Working remotely", statusEmoji: ":house_with_garden:") { result, errorMessage in
+            if let result = result {
+                self.profile = result
+                self.statusBarItem.title = self.profile!.statusText
+            }
+        }
+    }
+
     @objc func signInOut(sender: AnyObject) {
         if !signedIn {
             self.signedIn = true
             self.getProfile(sender: self)
             timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(getProfile), userInfo: nil, repeats: true)
             self.connectMenuItem.title = "Sign out"
+            self.status1MenuItem.isEnabled = true
         } else {
             timer.invalidate()
             self.signedIn = false
             self.connectMenuItem.title = "Sign in"
             self.statusBarItem.title = "Slack Status: Sign in"
+            self.status1MenuItem.isEnabled = false
         }
 
     }

@@ -19,6 +19,38 @@ class SlackService {
     
     let defaultSession = URLSession(configuration: .default)
     var dataTask: URLSessionDataTask?
+
+    var setProfileDataTask: URLSessionDataTask?
+
+    func setProfile(statusText: String, statusEmoji: String, completion: @escaping QueryResult) {
+        setProfileDataTask?.cancel()
+
+        let json: [String: Any] = ["profile": ["status_text": statusText, "status_emoji": statusEmoji]]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        let url = URL(string: "https://slack.com/api/users.profile.set")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "content-type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpBody = jsonData
+
+        setProfileDataTask = defaultSession.dataTask(with: request) { data, response, error in
+            if let error = error {
+                self.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
+            } else if let data = data,
+                let response = response as? HTTPURLResponse,
+                response.statusCode == 200 {
+                let responseData = String(data: data, encoding: String.Encoding.utf8)
+                NSLog(responseData!)
+                self.updateProfile(data)
+
+                DispatchQueue.main.async {
+                    completion(self.profile, self.errorMessage)
+                }
+            }
+        }
+        setProfileDataTask?.resume()
+    }
     
     func getProfile(completion: @escaping QueryResult) {
         dataTask?.cancel()
