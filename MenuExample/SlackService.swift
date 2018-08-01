@@ -34,51 +34,21 @@ class SlackService {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
 
-        setProfileDataTask = defaultSession.dataTask(with: request) { data, response, error in
-            if let error = error {
-                self.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
-            } else if let data = data,
-                let response = response as? HTTPURLResponse,
-                response.statusCode == 200 {
-                let responseData = String(data: data, encoding: String.Encoding.utf8)
-                NSLog(responseData!)
-                self.updateProfile(data)
-
-                DispatchQueue.main.async {
-                    completion(self.profile, self.errorMessage)
-                }
-            }
-        }
+        setProfileDataTask = createDataTask(request: request, completion: completion)
         setProfileDataTask?.resume()
     }
     
     func getProfile(completion: @escaping QueryResult) {
         dataTask?.cancel()
         
-        if var urlComponents = URLComponents(string: "https://slack.com/api/users.profile.get") {
-            urlComponents.query = "token=\(token)"
-            
-            guard let url = urlComponents.url else { return }
-            
-            dataTask = defaultSession.dataTask(with: url) { data, response, error in
-                defer { self.dataTask = nil }
-                
-                if let error = error {
-                    self.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
-                } else if let data = data,
-                    let response = response as? HTTPURLResponse,
-                    response.statusCode == 200 {
-//                    let responseData = String(data: data, encoding: String.Encoding.utf8)
-//                    NSLog(responseData!)
-                    self.updateProfile(data)
-                    
-                    DispatchQueue.main.async {
-                        completion(self.profile, self.errorMessage)
-                    }
-                }
-            }
-            dataTask?.resume()
-        }
+        var urlComponents = URLComponents(string: "https://slack.com/api/users.profile.get")!
+        urlComponents.query = "token=\(token)"
+
+        guard let url = urlComponents.url else { return }
+        let request = URLRequest(url: url)
+
+        dataTask = createDataTask(request: request, completion: completion)
+        dataTask?.resume()
     }
     
     fileprivate func updateProfile(_ data: Data) {
@@ -99,6 +69,24 @@ class SlackService {
         if let profile = profile as? JSONDictionary,
             let statusText = profile["status_text"] as? String {
             self.profile = Profile(statusText: statusText)
+        }
+    }
+
+    func createDataTask(request: URLRequest, completion: @escaping QueryResult) -> URLSessionDataTask {
+        return defaultSession.dataTask(with: request) { data, response, error in
+            if let error = error {
+                self.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
+            } else if let data = data,
+                let response = response as? HTTPURLResponse,
+                response.statusCode == 200 {
+//                let responseData = String(data: data, encoding: String.Encoding.utf8)
+//                NSLog(responseData!)
+                self.updateProfile(data)
+
+                DispatchQueue.main.async {
+                    completion(self.profile, self.errorMessage)
+                }
+            }
         }
     }
 }
