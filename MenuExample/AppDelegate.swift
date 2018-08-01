@@ -14,10 +14,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBar = NSStatusBar.system
     var statusBarItem : NSStatusItem = NSStatusItem()
     var menu: NSMenu = NSMenu()
-    var menuItem : NSMenuItem = NSMenuItem()
+    var connectMenuItem : NSMenuItem = NSMenuItem()
     var quitMenuItem : NSMenuItem = NSMenuItem()
     
     var timer = Timer()
+    var signedIn = false
     
     var profile: Profile?
     
@@ -30,12 +31,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusBarItem.title = "Slack Status: Sign in"
         
         // add menuItem to menu
-        menuItem.title = "Get Profile"
-        menuItem.target = self
-        menuItem.action = #selector(getProfile)
-        menuItem.keyEquivalent = ""
-        menuItem.isEnabled = true
-        menu.addItem(menuItem)
+        connectMenuItem.title = "Sign in"
+        connectMenuItem.target = self
+        connectMenuItem.action = #selector(signInOut)
+        connectMenuItem.keyEquivalent = ""
+        connectMenuItem.isEnabled = true
+        menu.addItem(connectMenuItem)
         
         // add menuItem to menu
         quitMenuItem.title = "Quit"
@@ -44,9 +45,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         quitMenuItem.keyEquivalent = ""
         quitMenuItem.isEnabled = true
         menu.addItem(quitMenuItem)
-        
-        self.getProfile(sender: self)
-        timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(getProfile), userInfo: nil, repeats: true)
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -55,6 +53,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+
+    @objc func signInOut(sender: AnyObject) {
+        if !signedIn {
+            self.signedIn = true
+            self.getProfile(sender: self)
+            timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(getProfile), userInfo: nil, repeats: true)
+            self.connectMenuItem.title = "Sign out"
+        } else {
+            timer.invalidate()
+            self.signedIn = false
+            self.connectMenuItem.title = "Sign in"
+            self.statusBarItem.title = "Slack Status: Sign in"
+        }
+
     }
     
     @objc func getProfile(sender: AnyObject) {
