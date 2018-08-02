@@ -9,8 +9,8 @@
 import Foundation
 
 class SlackService {
-    let token = "fake-slack-token"
-    
+    var token: String?
+
     typealias JSONDictionary = [String: Any]
     typealias QueryResult = (Profile?, String) -> ()
     
@@ -31,7 +31,7 @@ class SlackService {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "content-type")
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(token!)", forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
 
         setProfileDataTask = createDataTask(request: request, completion: completion)
@@ -42,7 +42,7 @@ class SlackService {
         dataTask?.cancel()
         
         var urlComponents = URLComponents(string: "https://slack.com/api/users.profile.get")!
-        urlComponents.query = "token=\(token)"
+        urlComponents.query = "token=\(token!)"
 
         guard let url = urlComponents.url else { return }
         let request = URLRequest(url: url)
@@ -79,8 +79,6 @@ class SlackService {
             } else if let data = data,
                 let response = response as? HTTPURLResponse,
                 response.statusCode == 200 {
-//                let responseData = String(data: data, encoding: String.Encoding.utf8)
-//                NSLog(responseData!)
                 self.updateProfile(data)
 
                 DispatchQueue.main.async {
@@ -88,5 +86,9 @@ class SlackService {
                 }
             }
         }
+    }
+
+    func setToken(token: String) {
+        self.token = token
     }
 }

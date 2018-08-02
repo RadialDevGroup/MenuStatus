@@ -104,3 +104,8 @@ fastlane/test_output
 
 
 # End of https://www.gitignore.io/api/swift,macos
+
+# SlackAppCredentials
+
+MenuExample/SlackAppCredentials.generated.swift
+env-vars.sh

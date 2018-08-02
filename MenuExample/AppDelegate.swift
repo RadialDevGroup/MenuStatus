@@ -7,6 +7,12 @@
 //
 
 import Cocoa
+import OAuthSwift
+
+struct KeychainConfiguration {
+    static let serviceName = "MenuExample"
+    static let accessGroup: String? = nil
+}
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -24,6 +30,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var profile: Profile?
     
     let slackService = SlackService()
+
+    var oauthswift: OAuth2Swift?
+
+    var passwordItem: KeychainPasswordItem?
+    var token: String?
     
     override func awakeFromNib() {
         menu.autoenablesItems = false
@@ -58,7 +69,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        NSAppleEventManager.shared().setEventHandler(self, andSelector:#selector(AppDelegate.handleGetURL(event:withReplyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -77,11 +88,41 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func signInOut(sender: AnyObject) {
         if !signedIn {
-            self.signedIn = true
-            self.getProfile(sender: self)
-            timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(getProfile), userInfo: nil, repeats: true)
-            self.connectMenuItem.title = "Sign out"
-            self.status1MenuItem.isEnabled = true
+            let token = getTokenFromKeychain()
+            if token != nil {
+                slackService.setToken(token: token!)
+                self.signedIn = true
+                self.getProfile(sender: self)
+                timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(getProfile), userInfo: nil, repeats: true)
+                self.connectMenuItem.title = "Sign out"
+                self.status1MenuItem.isEnabled = true
+            } else {
+                let oauthswift = OAuth2Swift(
+                    consumerKey:    slackAppCreds.client_key,
+                    consumerSecret: slackAppCreds.client_secret,
+                    authorizeUrl:   "https://slack.com/oauth/authorize",
+                    accessTokenUrl: "https://slack.com/api/oauth.access",
+                    responseType:   "code"
+                )
+                self.oauthswift = oauthswift
+
+                let state = generateState(withLength: 20)
+                oauthswift.authorize(
+                    withCallbackURL: URL(string: "slack-menu-status://oauth-callback/slack")!, scope: "users.profile:read,users.profile:write", state: state,
+                    success: { (credential, response, parameters) in
+                        self.saveTokenToKeychain(token: credential.oauthToken)
+                        self.slackService.setToken(token: credential.oauthToken)
+                        self.signedIn = true
+                        self.getProfile(sender: self)
+                        self.timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.getProfile), userInfo: nil, repeats: true)
+                        self.connectMenuItem.title = "Sign out"
+                        self.status1MenuItem.isEnabled = true
+                },
+                    failure: { (error: Error) in
+                        NSLog(error.localizedDescription)
+                }
+                )
+            }
         } else {
             timer.invalidate()
             self.signedIn = false
@@ -104,6 +145,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func quit(sender: AnyObject) {
         NSApp.terminate(self);
+    }
+
+    @objc func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
+        if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue, let url = URL(string: urlString) {
+            OAuthSwift.handle(url: url)
+        }
+    }
+
+    func getTokenFromKeychain() -> String? {
+        do {
+            let tokenItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName,
+                                             account: "slack-menu-status-token",
+                                             accessGroup: KeychainConfiguration.accessGroup)
+            let token = try tokenItem.readPassword()
+            return token;
+        } catch {
+            return nil;
+        }
+    }
+
+    func saveTokenToKeychain(token: String) {
+        do {
+            let tokenItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName,
+                                                 account: "slack-menu-status-token",
+                                                 accessGroup: KeychainConfiguration.accessGroup)
+            try tokenItem.savePassword(token)
+        } catch {
+            return;
+        }
     }
 }
 

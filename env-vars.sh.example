@@ -1,0 +1,2 @@
+export SLACK_MENU_STATUS_APP_CLIENT_KEY=your_app_key
+export SLACK_MENU_STATUS_APP_CLIENT_SECRET=your_app_secret

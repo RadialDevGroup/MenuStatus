@@ -12,7 +12,91 @@
 		58B03F522110CFFA00CC47EC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58B03F502110CFFA00CC47EC /* MainMenu.xib */; };
 		58B03F5B2110EB0900CC47EC /* SlackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B03F5A2110EB0900CC47EC /* SlackService.swift */; };
 		58B03F5D2111061B00CC47EC /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B03F5C2111061B00CC47EC /* Profile.swift */; };
+		58B03F7E2113655400CC47EC /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B03F6C2113636100CC47EC /* OAuthSwift.framework */; };
+		58B03F7F2113655400CC47EC /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 58B03F6C2113636100CC47EC /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		58B03F842113764900CC47EC /* GenericKeychainPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B03F832113764900CC47EC /* GenericKeychainPassword.swift */; };
+		58B03F872113A3D800CC47EC /* SlackAppCredentials.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B03F862113A3D800CC47EC /* SlackAppCredentials.generated.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		58B03F692113636100CC47EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F435027A1A6791B200038A29;
+			remoteInfo = OAuthSwift;
+		};
+		58B03F6B2113636100CC47EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C48B28021AFA598D00C7DEF6;
+			remoteInfo = OAuthSwiftMacOS;
+		};
+		58B03F6D2113636100CC47EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4B6EE1E1BF74CE300443596;
+			remoteInfo = OAuthSwiftTVOS;
+		};
+		58B03F6F2113636100CC47EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C40890C01C11B37000E3146A;
+			remoteInfo = OAuthSwiftWatchOS;
+		};
+		58B03F712113636100CC47EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F451E3C5195B8CD80051434C;
+			remoteInfo = OAuthSwiftDemo;
+		};
+		58B03F732113636100CC47EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C49FD5241AFB5DF500791E1A;
+			remoteInfo = OAuthSwiftMacOSDemo;
+		};
+		58B03F752113636100CC47EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4D50DF71BFB693F0053B624;
+			remoteInfo = OAuthSwiftTests;
+		};
+		58B03F7B2113643000CC47EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F43502791A6791B200038A29;
+			remoteInfo = OAuthSwift;
+		};
+		58B03F802113655400CC47EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C48B28011AFA598D00C7DEF6;
+			remoteInfo = OAuthSwiftMacOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		58B03F822113655400CC47EC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				58B03F7F2113655400CC47EC /* OAuthSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		58B03F492110CFF900CC47EC /* MenuExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -23,6 +107,9 @@
 		58B03F542110CFFA00CC47EC /* MenuExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MenuExample.entitlements; sourceTree = "<group>"; };
 		58B03F5A2110EB0900CC47EC /* SlackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlackService.swift; sourceTree = "<group>"; };
 		58B03F5C2111061B00CC47EC /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuthSwift.xcodeproj; path = OAuthSwift/OAuthSwift.xcodeproj; sourceTree = "<group>"; };
+		58B03F832113764900CC47EC /* GenericKeychainPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericKeychainPassword.swift; sourceTree = "<group>"; };
+		58B03F862113A3D800CC47EC /* SlackAppCredentials.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackAppCredentials.generated.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58B03F7E2113655400CC47EC /* OAuthSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +129,8 @@
 			children = (
 				58B03F4B2110CFF900CC47EC /* MenuExample */,
 				58B03F4A2110CFF900CC47EC /* Products */,
+				58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */,
+				58B03F772113639100CC47EC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,14 +146,37 @@
 			isa = PBXGroup;
 			children = (
 				58B03F4C2110CFF900CC47EC /* AppDelegate.swift */,
+				58B03F862113A3D800CC47EC /* SlackAppCredentials.generated.swift */,
 				58B03F4E2110CFFA00CC47EC /* Assets.xcassets */,
 				58B03F502110CFFA00CC47EC /* MainMenu.xib */,
 				58B03F532110CFFA00CC47EC /* Info.plist */,
 				58B03F542110CFFA00CC47EC /* MenuExample.entitlements */,
 				58B03F5A2110EB0900CC47EC /* SlackService.swift */,
+				58B03F832113764900CC47EC /* GenericKeychainPassword.swift */,
 				58B03F5C2111061B00CC47EC /* Profile.swift */,
 			);
 			path = MenuExample;
+			sourceTree = "<group>";
+		};
+		58B03F602113636100CC47EC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				58B03F6A2113636100CC47EC /* OAuthSwift.framework */,
+				58B03F6C2113636100CC47EC /* OAuthSwift.framework */,
+				58B03F6E2113636100CC47EC /* OAuthSwift.framework */,
+				58B03F702113636100CC47EC /* OAuthSwift.framework */,
+				58B03F722113636100CC47EC /* OAuthSwiftDemo.app */,
+				58B03F742113636100CC47EC /* OAuthSwiftMacOSDemo.app */,
+				58B03F762113636100CC47EC /* OAuthSwiftTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		58B03F772113639100CC47EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -73,13 +186,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B03F572110CFFA00CC47EC /* Build configuration list for PBXNativeTarget "MenuExample" */;
 			buildPhases = (
+				58B03F8521139F5400CC47EC /* ShellScript */,
 				58B03F452110CFF900CC47EC /* Sources */,
 				58B03F462110CFF900CC47EC /* Frameworks */,
 				58B03F472110CFF900CC47EC /* Resources */,
+				58B03F822113655400CC47EC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				58B03F7C2113643000CC47EC /* PBXTargetDependency */,
+				58B03F812113655400CC47EC /* PBXTargetDependency */,
 			);
 			name = MenuExample;
 			productName = MenuExample;
@@ -117,12 +234,70 @@
 			mainGroup = 58B03F402110CFF900CC47EC;
 			productRefGroup = 58B03F4A2110CFF900CC47EC /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 58B03F602113636100CC47EC /* Products */;
+					ProjectRef = 58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				58B03F482110CFF900CC47EC /* MenuExample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		58B03F6A2113636100CC47EC /* OAuthSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OAuthSwift.framework;
+			remoteRef = 58B03F692113636100CC47EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		58B03F6C2113636100CC47EC /* OAuthSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OAuthSwift.framework;
+			remoteRef = 58B03F6B2113636100CC47EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		58B03F6E2113636100CC47EC /* OAuthSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OAuthSwift.framework;
+			remoteRef = 58B03F6D2113636100CC47EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		58B03F702113636100CC47EC /* OAuthSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OAuthSwift.framework;
+			remoteRef = 58B03F6F2113636100CC47EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		58B03F722113636100CC47EC /* OAuthSwiftDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = OAuthSwiftDemo.app;
+			remoteRef = 58B03F712113636100CC47EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		58B03F742113636100CC47EC /* OAuthSwiftMacOSDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = OAuthSwiftMacOSDemo.app;
+			remoteRef = 58B03F732113636100CC47EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		58B03F762113636100CC47EC /* OAuthSwiftTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = OAuthSwiftTests.xctest;
+			remoteRef = 58B03F752113636100CC47EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		58B03F472110CFF900CC47EC /* Resources */ = {
@@ -136,18 +311,49 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		58B03F8521139F5400CC47EC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#check if env-vars.sh exists\nif [ -f ./env-vars.sh ]\nthen\nsource ./env-vars.sh\nfi\n#no `else` case needed if the CI works as expected\nsourcery --templates ./MenuExample --sources . --output ./MenuExample --args client_key=\\\"$SLACK_MENU_STATUS_APP_CLIENT_KEY\\\",client_secret=\\\"$SLACK_MENU_STATUS_APP_CLIENT_SECRET\\\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		58B03F452110CFF900CC47EC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58B03F842113764900CC47EC /* GenericKeychainPassword.swift in Sources */,
 				58B03F5B2110EB0900CC47EC /* SlackService.swift in Sources */,
 				58B03F5D2111061B00CC47EC /* Profile.swift in Sources */,
+				58B03F872113A3D800CC47EC /* SlackAppCredentials.generated.swift in Sources */,
 				58B03F4D2110CFF900CC47EC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		58B03F7C2113643000CC47EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OAuthSwift;
+			targetProxy = 58B03F7B2113643000CC47EC /* PBXContainerItemProxy */;
+		};
+		58B03F812113655400CC47EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OAuthSwiftMacOS;
+			targetProxy = 58B03F802113655400CC47EC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		58B03F502110CFFA00CC47EC /* MainMenu.xib */ = {
@@ -277,6 +483,7 @@
 		58B03F582110CFFA00CC47EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MenuExample/MenuExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -295,6 +502,7 @@
 		58B03F592110CFFA00CC47EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MenuExample/MenuExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
