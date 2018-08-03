@@ -99,12 +99,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		58B03F492110CFF900CC47EC /* MenuExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		58B03F492110CFF900CC47EC /* MenuStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58B03F4C2110CFF900CC47EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		58B03F4E2110CFFA00CC47EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		58B03F512110CFFA00CC47EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		58B03F532110CFFA00CC47EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		58B03F542110CFFA00CC47EC /* MenuExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MenuExample.entitlements; sourceTree = "<group>"; };
+		58B03F542110CFFA00CC47EC /* MenuStatus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MenuStatus.entitlements; sourceTree = "<group>"; };
 		58B03F5A2110EB0900CC47EC /* SlackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlackService.swift; sourceTree = "<group>"; };
 		58B03F5C2111061B00CC47EC /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuthSwift.xcodeproj; path = OAuthSwift/OAuthSwift.xcodeproj; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 		58B03F402110CFF900CC47EC = {
 			isa = PBXGroup;
 			children = (
-				58B03F4B2110CFF900CC47EC /* MenuExample */,
+				58B03F4B2110CFF900CC47EC /* MenuStatus */,
 				58B03F4A2110CFF900CC47EC /* Products */,
 				58B03F5F2113636100CC47EC /* OAuthSwift.xcodeproj */,
 				58B03F772113639100CC47EC /* Frameworks */,
@@ -137,12 +137,12 @@
 		58B03F4A2110CFF900CC47EC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				58B03F492110CFF900CC47EC /* MenuExample.app */,
+				58B03F492110CFF900CC47EC /* MenuStatus.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		58B03F4B2110CFF900CC47EC /* MenuExample */ = {
+		58B03F4B2110CFF900CC47EC /* MenuStatus */ = {
 			isa = PBXGroup;
 			children = (
 				58B03F4C2110CFF900CC47EC /* AppDelegate.swift */,
@@ -150,12 +150,12 @@
 				58B03F4E2110CFFA00CC47EC /* Assets.xcassets */,
 				58B03F502110CFFA00CC47EC /* MainMenu.xib */,
 				58B03F532110CFFA00CC47EC /* Info.plist */,
-				58B03F542110CFFA00CC47EC /* MenuExample.entitlements */,
+				58B03F542110CFFA00CC47EC /* MenuStatus.entitlements */,
 				58B03F5A2110EB0900CC47EC /* SlackService.swift */,
 				58B03F832113764900CC47EC /* GenericKeychainPassword.swift */,
 				58B03F5C2111061B00CC47EC /* Profile.swift */,
 			);
-			path = MenuExample;
+			path = MenuStatus;
 			sourceTree = "<group>";
 		};
 		58B03F602113636100CC47EC /* Products */ = {
@@ -182,9 +182,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		58B03F482110CFF900CC47EC /* MenuExample */ = {
+		58B03F482110CFF900CC47EC /* MenuStatus */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 58B03F572110CFFA00CC47EC /* Build configuration list for PBXNativeTarget "MenuExample" */;
+			buildConfigurationList = 58B03F572110CFFA00CC47EC /* Build configuration list for PBXNativeTarget "MenuStatus" */;
 			buildPhases = (
 				58B03F8521139F5400CC47EC /* ShellScript */,
 				58B03F452110CFF900CC47EC /* Sources */,
@@ -198,9 +198,9 @@
 				58B03F7C2113643000CC47EC /* PBXTargetDependency */,
 				58B03F812113655400CC47EC /* PBXTargetDependency */,
 			);
-			name = MenuExample;
-			productName = MenuExample;
-			productReference = 58B03F492110CFF900CC47EC /* MenuExample.app */;
+			name = MenuStatus;
+			productName = MenuStatus;
+			productReference = 58B03F492110CFF900CC47EC /* MenuStatus.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -223,7 +223,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 58B03F442110CFF900CC47EC /* Build configuration list for PBXProject "MenuExample" */;
+			buildConfigurationList = 58B03F442110CFF900CC47EC /* Build configuration list for PBXProject "MenuStatus" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -242,7 +242,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				58B03F482110CFF900CC47EC /* MenuExample */,
+				58B03F482110CFF900CC47EC /* MenuStatus */,
 			);
 		};
 /* End PBXProject section */
@@ -323,7 +323,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#check if env-vars.sh exists\nif [ -f ./env-vars.sh ]\nthen\nsource ./env-vars.sh\nfi\n#no `else` case needed if the CI works as expected\nsourcery --templates ./MenuExample --sources . --output ./MenuExample --args client_key=\\\"$SLACK_MENU_STATUS_APP_CLIENT_KEY\\\",client_secret=\\\"$SLACK_MENU_STATUS_APP_CLIENT_SECRET\\\"";
+			shellScript = "#check if env-vars.sh exists\nif [ -f ./env-vars.sh ]\nthen\nsource ./env-vars.sh\nfi\n#no `else` case needed if the CI works as expected\nsourcery --templates ./MenuStatus --sources . --output ./MenuStatus --args client_key=\\\"$SLACK_MENU_STATUS_APP_CLIENT_KEY\\\",client_secret=\\\"$SLACK_MENU_STATUS_APP_CLIENT_SECRET\\\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -485,15 +485,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MenuExample/MenuExample.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MenuStatus/MenuStatus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MenuExample/Info.plist;
+				INFOPLIST_FILE = MenuStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.radialdevgroup.MenuExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.radialdevgroup.MenuStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -504,15 +504,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MenuExample/MenuExample.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MenuStatus/MenuStatus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MenuExample/Info.plist;
+				INFOPLIST_FILE = MenuStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.radialdevgroup.MenuExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.radialdevgroup.MenuStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -521,7 +521,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		58B03F442110CFF900CC47EC /* Build configuration list for PBXProject "MenuExample" */ = {
+		58B03F442110CFF900CC47EC /* Build configuration list for PBXProject "MenuStatus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58B03F552110CFFA00CC47EC /* Debug */,
@@ -530,7 +530,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		58B03F572110CFFA00CC47EC /* Build configuration list for PBXNativeTarget "MenuExample" */ = {
+		58B03F572110CFFA00CC47EC /* Build configuration list for PBXNativeTarget "MenuStatus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58B03F582110CFFA00CC47EC /* Debug */,

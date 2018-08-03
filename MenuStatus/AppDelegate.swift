@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  MenuExample
+//  MenuStatus
 //
 //  Created by Geoffrey Thompson on 7/31/18.
 //  Copyright © 2018 Radial Development Group. All rights reserved.
@@ -10,7 +10,7 @@ import Cocoa
 import OAuthSwift
 
 struct KeychainConfiguration {
-    static let serviceName = "MenuExample"
+    static let serviceName = "MenuStatus"
     static let accessGroup: String? = nil
 }
 
@@ -108,7 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
                 let state = generateState(withLength: 20)
                 oauthswift.authorize(
-                    withCallbackURL: URL(string: "slack-menu-status://oauth-callback/slack")!, scope: "users.profile:read,users.profile:write", state: state,
+                    withCallbackURL: URL(string: "menu-status://oauth-callback/slack")!, scope: "users.profile:read,users.profile:write", state: state,
                     success: { (credential, response, parameters) in
                         self.saveTokenToKeychain(token: credential.oauthToken)
                         self.slackService.setToken(token: credential.oauthToken)

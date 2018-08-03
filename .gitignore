@@ -107,5 +107,5 @@ fastlane/test_output
 
 # SlackAppCredentials
 
-MenuExample/SlackAppCredentials.generated.swift
+MenuStatus/SlackAppCredentials.generated.swift
 env-vars.sh
