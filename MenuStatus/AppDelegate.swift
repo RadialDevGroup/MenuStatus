@@ -42,7 +42,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // add statusBarItem
         statusBarItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
         statusBarItem.menu = menu
-        statusBarItem.title = "Slack Status: Sign in"
         statusBarItem.image = NSImage(named:NSImage.Name("Slack_Mark_Black_Web"))
 
         status1MenuItem.title = "Working remotely"
@@ -128,7 +127,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             timer.invalidate()
             self.signedIn = false
             self.connectMenuItem.title = "Sign in"
-            self.statusBarItem.title = "Slack Status: Sign in"
+            self.statusBarItem.title = nil
             self.status1MenuItem.isEnabled = false
         }
 
