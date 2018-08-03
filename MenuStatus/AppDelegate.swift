@@ -43,6 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusBarItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
         statusBarItem.menu = menu
         statusBarItem.title = "Slack Status: Sign in"
+        statusBarItem.image = NSImage(named:NSImage.Name("Slack_Mark_Black_Web"))
 
         status1MenuItem.title = "Working remotely"
         status1MenuItem.target = self
