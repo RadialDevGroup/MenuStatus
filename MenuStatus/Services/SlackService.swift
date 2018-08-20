@@ -67,8 +67,9 @@ class SlackService {
         }
         
         if let profile = profile as? JSONDictionary,
-            let statusText = profile["status_text"] as? String {
-            self.profile = Profile(statusText: statusText)
+            let statusText = profile["status_text"] as? String,
+            let statusEmoji = profile["status_emoji"] as? String {
+            self.profile = Profile(statusText: statusText, statusEmoji: statusEmoji)
         }
     }
 

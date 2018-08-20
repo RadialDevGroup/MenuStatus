@@ -154,7 +154,18 @@ class StatusItemController {
         slackService.getProfile() { result, errorMessage in
             if let result = result {
                 self.profile = result
-                self.setStatusBarIcon(string: "\u{1F3E1}")
+                var iconString: String?
+                switch (self.profile!.statusEmoji) {
+                case ":office:":
+                    iconString = "\u{1F3E2}"
+                    break
+                case ":house_with_garden:":
+                    iconString = "\u{1F3E1}"
+                    break
+                default:
+                    iconString = nil
+                }
+                self.setStatusBarIcon(string: iconString)
             }
         }
     }
