@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		587EC1C6212B37F700D608A6 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587EC1C5212B37F700D608A6 /* StatusItemController.swift */; };
 		58B03F4D2110CFF900CC47EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B03F4C2110CFF900CC47EC /* AppDelegate.swift */; };
 		58B03F4F2110CFFA00CC47EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58B03F4E2110CFFA00CC47EC /* Assets.xcassets */; };
 		58B03F522110CFFA00CC47EC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58B03F502110CFFA00CC47EC /* MainMenu.xib */; };
@@ -99,6 +100,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		587EC1C5212B37F700D608A6 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		58B03F492110CFF900CC47EC /* MenuStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58B03F4C2110CFF900CC47EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		58B03F4E2110CFFA00CC47EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				58B03F4C2110CFF900CC47EC /* AppDelegate.swift */,
+				587EC1C5212B37F700D608A6 /* StatusItemController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 			files = (
 				58B03F842113764900CC47EC /* GenericKeychainPassword.swift in Sources */,
 				58B03F5B2110EB0900CC47EC /* SlackService.swift in Sources */,
+				587EC1C6212B37F700D608A6 /* StatusItemController.swift in Sources */,
 				58B03F5D2111061B00CC47EC /* Profile.swift in Sources */,
 				58B03F872113A3D800CC47EC /* SlackAppCredentials.generated.swift in Sources */,
 				58B03F4D2110CFF900CC47EC /* AppDelegate.swift in Sources */,
