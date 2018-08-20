@@ -14,6 +14,7 @@ class StatusItemController {
     var statusBarItem : NSStatusItem = NSStatusItem()
     var menu: NSMenu = NSMenu()
     var status1MenuItem : NSMenuItem = NSMenuItem()
+    var status2MenuItem : NSMenuItem = NSMenuItem()
     var connectMenuItem : NSMenuItem = NSMenuItem()
     var quitMenuItem : NSMenuItem = NSMenuItem()
 
@@ -54,6 +55,13 @@ class StatusItemController {
         status1MenuItem.isEnabled = false
         menu.addItem(status1MenuItem)
 
+        status2MenuItem.title = "\u{1F3E2} I'm working at the office"
+        status2MenuItem.target = self
+        status2MenuItem.action = #selector(status2ItemAction)
+        status2MenuItem.keyEquivalent = ""
+        status2MenuItem.isEnabled = false
+        menu.addItem(status2MenuItem)
+
         // add menuItem to menu
         connectMenuItem.title = "Sign in"
         connectMenuItem.target = self
@@ -76,7 +84,17 @@ class StatusItemController {
         slackService.setProfile(statusText: "Working remotely", statusEmoji: ":house_with_garden:") { result, errorMessage in
             if let result = result {
                 self.profile = result
-                self.statusBarItem.title = self.profile!.statusText
+                self.setStatusBarIcon(string: "\u{1F3E1}")
+            }
+        }
+    }
+
+    @objc func status2ItemAction(sender: AnyObject) {
+        NSLog("status2ItemAction called")
+        slackService.setProfile(statusText: "I'm working at the office", statusEmoji: ":office:") { result, errorMessage in
+            if let result = result {
+                self.profile = result
+                self.setStatusBarIcon(string: "\u{1F3E2}")
             }
         }
     }
@@ -91,6 +109,7 @@ class StatusItemController {
                 timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(getProfile), userInfo: nil, repeats: true)
                 self.connectMenuItem.title = "Sign out"
                 self.status1MenuItem.isEnabled = true
+                self.status2MenuItem.isEnabled = true
             } else {
                 let oauthswift = OAuth2Swift(
                     consumerKey:    slackAppCreds.client_key,
@@ -112,6 +131,7 @@ class StatusItemController {
                         self.timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.getProfile), userInfo: nil, repeats: true)
                         self.connectMenuItem.title = "Sign out"
                         self.status1MenuItem.isEnabled = true
+                        self.status2MenuItem.isEnabled = true
                 },
                     failure: { (error: Error) in
                         NSLog(error.localizedDescription)
@@ -124,6 +144,7 @@ class StatusItemController {
             self.connectMenuItem.title = "Sign in"
             setStatusBarIcon()
             self.status1MenuItem.isEnabled = false
+            self.status2MenuItem.isEnabled = false
         }
 
     }
