@@ -13,7 +13,9 @@ class StatusItemController {
     var statusBar = NSStatusBar.system
     var statusBarItem : NSStatusItem = NSStatusItem()
     var menu: NSMenu = NSMenu()
+    var status1Profile: Profile?
     var status1MenuItem : NSMenuItem = NSMenuItem()
+    var status2Profile: Profile?
     var status2MenuItem : NSMenuItem = NSMenuItem()
     var connectMenuItem : NSMenuItem = NSMenuItem()
     var quitMenuItem : NSMenuItem = NSMenuItem()
@@ -48,18 +50,22 @@ class StatusItemController {
         statusBarItem.menu = menu
         setStatusBarIcon()
 
+        status1Profile = Profile(statusText: "Working remotely", statusEmoji: ":house_with_garden:")
         status1MenuItem.title = "\u{1F3E1} Working remotely"
         status1MenuItem.target = self
-        status1MenuItem.action = #selector(status1ItemAction)
+        status1MenuItem.action = #selector(statusItemAction)
         status1MenuItem.keyEquivalent = ""
         status1MenuItem.isEnabled = false
+        status1MenuItem.representedObject = status1Profile
         menu.addItem(status1MenuItem)
 
+        status2Profile = Profile(statusText: "I'm working at the office", statusEmoji: ":office:")
         status2MenuItem.title = "\u{1F3E2} I'm working at the office"
         status2MenuItem.target = self
-        status2MenuItem.action = #selector(status2ItemAction)
+        status2MenuItem.action = #selector(statusItemAction)
         status2MenuItem.keyEquivalent = ""
         status2MenuItem.isEnabled = false
+        status2MenuItem.representedObject = status2Profile
         menu.addItem(status2MenuItem)
 
         // add menuItem to menu
@@ -79,22 +85,13 @@ class StatusItemController {
         menu.addItem(quitMenuItem)
     }
 
-    @objc func status1ItemAction(sender: AnyObject) {
-        NSLog("status1ItemAction called")
-        slackService.setProfile(statusText: "Working remotely", statusEmoji: ":house_with_garden:") { result, errorMessage in
+    @objc func statusItemAction(sender: AnyObject) {
+        NSLog("statusItemAction called")
+        let newProfile = sender.representedObject as? Profile
+        slackService.setProfile(statusText: newProfile!.statusText, statusEmoji: newProfile!.statusEmoji) { result, errorMessage in
             if let result = result {
                 self.profile = result
-                self.setStatusBarIcon(string: "\u{1F3E1}")
-            }
-        }
-    }
-
-    @objc func status2ItemAction(sender: AnyObject) {
-        NSLog("status2ItemAction called")
-        slackService.setProfile(statusText: "I'm working at the office", statusEmoji: ":office:") { result, errorMessage in
-            if let result = result {
-                self.profile = result
-                self.setStatusBarIcon(string: "\u{1F3E2}")
+                self.setStatusBarIcon(string: self.profile!.emojiCode())
             }
         }
     }
@@ -154,18 +151,7 @@ class StatusItemController {
         slackService.getProfile() { result, errorMessage in
             if let result = result {
                 self.profile = result
-                var iconString: String?
-                switch (self.profile!.statusEmoji) {
-                case ":office:":
-                    iconString = "\u{1F3E2}"
-                    break
-                case ":house_with_garden:":
-                    iconString = "\u{1F3E1}"
-                    break
-                default:
-                    iconString = nil
-                }
-                self.setStatusBarIcon(string: iconString)
+                self.setStatusBarIcon(string: self.profile!.emojiCode())
             }
         }
     }

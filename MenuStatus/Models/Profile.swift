@@ -16,4 +16,19 @@ class Profile {
         self.statusText = statusText
         self.statusEmoji = statusEmoji
     }
+
+    func emojiCode() -> String {
+        var iconString: String?
+        switch (self.statusEmoji) {
+        case ":office:":
+            iconString = "\u{1F3E2}"
+            break
+        case ":house_with_garden:":
+            iconString = "\u{1F3E1}"
+            break
+        default:
+            iconString = nil
+        }
+        return iconString!
+    }
 }
