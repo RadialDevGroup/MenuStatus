@@ -124,6 +124,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		587EC1BB212B249D00D608A6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				58B03F4C2110CFF900CC47EC /* AppDelegate.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		587EC1C1212B24BF00D608A6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				58B03F5C2111061B00CC47EC /* Profile.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		587EC1C2212B25A900D608A6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				58B03F5A2110EB0900CC47EC /* SlackService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		587EC1C4212B28DD00D608A6 /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				58B03F4E2110CFFA00CC47EC /* Assets.xcassets */,
+				58B03F502110CFFA00CC47EC /* MainMenu.xib */,
+				58B03F532110CFFA00CC47EC /* Info.plist */,
+				58B03F542110CFFA00CC47EC /* MenuStatus.entitlements */,
+				58B03F832113764900CC47EC /* GenericKeychainPassword.swift */,
+				58B03F862113A3D800CC47EC /* SlackAppCredentials.generated.swift */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
 		58B03F402110CFF900CC47EC = {
 			isa = PBXGroup;
 			children = (
@@ -145,15 +182,10 @@
 		58B03F4B2110CFF900CC47EC /* MenuStatus */ = {
 			isa = PBXGroup;
 			children = (
-				58B03F4C2110CFF900CC47EC /* AppDelegate.swift */,
-				58B03F862113A3D800CC47EC /* SlackAppCredentials.generated.swift */,
-				58B03F4E2110CFFA00CC47EC /* Assets.xcassets */,
-				58B03F502110CFFA00CC47EC /* MainMenu.xib */,
-				58B03F532110CFFA00CC47EC /* Info.plist */,
-				58B03F542110CFFA00CC47EC /* MenuStatus.entitlements */,
-				58B03F5A2110EB0900CC47EC /* SlackService.swift */,
-				58B03F832113764900CC47EC /* GenericKeychainPassword.swift */,
-				58B03F5C2111061B00CC47EC /* Profile.swift */,
+				587EC1C1212B24BF00D608A6 /* Models */,
+				587EC1BB212B249D00D608A6 /* Controllers */,
+				587EC1C2212B25A900D608A6 /* Services */,
+				587EC1C4212B28DD00D608A6 /* SupportFiles */,
 			);
 			path = MenuStatus;
 			sourceTree = "<group>";
@@ -323,7 +355,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#check if env-vars.sh exists\nif [ -f ./env-vars.sh ]\nthen\nsource ./env-vars.sh\nfi\n#no `else` case needed if the CI works as expected\nsourcery --templates ./MenuStatus --sources . --output ./MenuStatus --args client_key=\\\"$SLACK_MENU_STATUS_APP_CLIENT_KEY\\\",client_secret=\\\"$SLACK_MENU_STATUS_APP_CLIENT_SECRET\\\"";
+			shellScript = "#check if env-vars.sh exists\nif [ -f ./env-vars.sh ]\nthen\nsource ./env-vars.sh\nfi\n#no `else` case needed if the CI works as expected\nsourcery --templates ./MenuStatus/SupportFiles --sources . --output ./MenuStatus/SupportFiles --args client_key=\\\"$SLACK_MENU_STATUS_APP_CLIENT_KEY\\\",client_secret=\\\"$SLACK_MENU_STATUS_APP_CLIENT_SECRET\\\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -485,10 +517,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MenuStatus/MenuStatus.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MenuStatus/SupportFiles/MenuStatus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MenuStatus/Info.plist;
+				INFOPLIST_FILE = MenuStatus/SupportFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -504,10 +536,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MenuStatus/MenuStatus.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MenuStatus/SupportFiles/MenuStatus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MenuStatus/Info.plist;
+				INFOPLIST_FILE = MenuStatus/SupportFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

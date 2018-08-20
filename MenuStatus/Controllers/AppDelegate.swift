@@ -44,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusBarItem.menu = menu
         statusBarItem.image = NSImage(named:NSImage.Name("Slack_Mark_Black_Web"))
 
-        status1MenuItem.title = "Working remotely"
+        status1MenuItem.title = "\u{1F3E1} Working remotely"
         status1MenuItem.target = self
         status1MenuItem.action = #selector(status1ItemAction)
         status1MenuItem.keyEquivalent = ""
@@ -138,7 +138,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         slackService.getProfile() { result, errorMessage in
             if let result = result {
                 self.profile = result
-                self.statusBarItem.title = self.profile!.statusText
+                // self.statusBarItem.title = self.profile!.statusText
+                self.statusBarItem.image = nil
+                self.statusBarItem.title = "\u{1F3E1}"
             }
         }
     }
