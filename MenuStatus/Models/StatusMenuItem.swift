@@ -11,12 +11,14 @@ import Cocoa
 
 class StatusMenuItem {
     var menuItem: NSMenuItem
+    var statusItemController: StatusItemController
 
     init(profile: Profile, statusItemController: StatusItemController) {
+        self.statusItemController = statusItemController
         menuItem = NSMenuItem()
         menuItem.title = "\(profile.emojiCode()) \(profile.statusText)"
-        menuItem.target = statusItemController
-        menuItem.action = #selector(StatusItemController.statusItemAction)
+        menuItem.target = self
+        menuItem.action = #selector(statusItemAction)
         menuItem.keyEquivalent = ""
         menuItem.isEnabled = false
         menuItem.representedObject = profile
@@ -28,5 +30,15 @@ class StatusMenuItem {
 
     func disable() {
         menuItem.isEnabled = false
+    }
+
+    @objc func statusItemAction(sender: AnyObject) {
+        NSLog("statusItemAction called")
+        let newProfile = sender.representedObject as? Profile
+        SlackService.shared.setProfile(statusText: newProfile!.statusText, statusEmoji: newProfile!.statusEmoji) { result, errorMessage in
+            if let result = result {
+                self.statusItemController.profile = result
+            }
+        }
     }
 }

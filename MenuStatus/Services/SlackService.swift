@@ -9,6 +9,7 @@
 import Foundation
 
 class SlackService {
+    static let shared = SlackService()
     var token: String?
 
     typealias JSONDictionary = [String: Any]
@@ -65,9 +66,8 @@ class SlackService {
             errorMessage += "Dictionary does not contain profile\n"
             return
         }
-        
-        if let profile = profile as? JSONDictionary,
-            let statusText = profile["status_text"] as? String,
+
+        if let statusText = profile["status_text"] as? String,
             let statusEmoji = profile["status_emoji"] as? String {
             self.profile = Profile(statusText: statusText, statusEmoji: statusEmoji)
         }

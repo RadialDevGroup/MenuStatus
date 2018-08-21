@@ -9,6 +9,8 @@
 import Cocoa
 import OAuthSwift
 
+let slackImage = NSImage(named:NSImage.Name("Slack_Mark_Black_Web"))
+
 let profileStatuses = [
     Profile(statusText: "Working remotely", statusEmoji: ":house_with_garden:"),
     Profile(statusText: "I'm working at the office", statusEmoji: ":office:")
@@ -17,6 +19,12 @@ let profileStatuses = [
 class StatusItemController {
     var statusBar = NSStatusBar.system
     var statusBarItem : NSStatusItem = NSStatusItem()
+    var statusBarIcon: String? {
+        didSet {
+            self.statusBarItem.image = self.statusBarIcon == nil ? slackImage : nil
+            self.statusBarItem.title = self.statusBarIcon
+        }
+    }
     var menu: NSMenu = NSMenu()
     var statusMenuItems = [StatusMenuItem]()
     var connectMenuItem : NSMenuItem = NSMenuItem()
@@ -25,31 +33,23 @@ class StatusItemController {
     var timer = Timer()
     var signedIn = false
 
-    var profile: Profile?
-
-    let slackService = SlackService()
+    var profile: Profile? {
+        didSet {
+            self.statusBarIcon = self.profile!.emojiCode()
+        }
+    }
 
     var oauthswift: OAuth2Swift?
 
     var passwordItem: KeychainPasswordItem?
     var token: String?
-
-    func setStatusBarIcon(string: String? = nil) {
-        if (string != nil) {
-            self.statusBarItem.title = string
-            self.statusBarItem.image = nil
-        } else {
-            self.statusBarItem.image = NSImage(named:NSImage.Name("Slack_Mark_Black_Web"))
-            self.statusBarItem.title = nil
-        }
-    }
     
     init() {
         menu.autoenablesItems = false
 
         statusBarItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
         statusBarItem.menu = menu
-        setStatusBarIcon()
+        statusBarItem.image = slackImage
 
         for profile in profileStatuses {
             let statusMenuItem = StatusMenuItem(profile: profile, statusItemController: self)
@@ -84,22 +84,11 @@ class StatusItemController {
         }
     }
 
-    @objc func statusItemAction(sender: AnyObject) {
-        NSLog("statusItemAction called")
-        let newProfile = sender.representedObject as? Profile
-        slackService.setProfile(statusText: newProfile!.statusText, statusEmoji: newProfile!.statusEmoji) { result, errorMessage in
-            if let result = result {
-                self.profile = result
-                self.setStatusBarIcon(string: self.profile!.emojiCode())
-            }
-        }
-    }
-
     @objc func signInOut(sender: AnyObject) {
         if !signedIn {
             let token = getTokenFromKeychain()
             if token != nil {
-                slackService.setToken(token: token!)
+                SlackService.shared.setToken(token: token!)
                 self.signedIn = true
                 self.getProfile(sender: self)
                 timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(getProfile), userInfo: nil, repeats: true)
@@ -120,7 +109,7 @@ class StatusItemController {
                     withCallbackURL: URL(string: "menu-status://oauth-callback/slack")!, scope: "users.profile:read,users.profile:write", state: state,
                     success: { (credential, response, parameters) in
                         saveTokenToKeychain(token: credential.oauthToken)
-                        self.slackService.setToken(token: credential.oauthToken)
+                        SlackService.shared.setToken(token: credential.oauthToken)
                         self.signedIn = true
                         self.getProfile(sender: self)
                         self.timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.getProfile), userInfo: nil, repeats: true)
@@ -136,17 +125,16 @@ class StatusItemController {
             timer.invalidate()
             self.signedIn = false
             self.connectMenuItem.title = "Sign in"
-            setStatusBarIcon()
+            self.statusBarIcon = nil
             self.disableStatusMenuItems()
         }
     }
 
     @objc func getProfile(sender: AnyObject) {
         NSLog("getProfile called")
-        slackService.getProfile() { result, errorMessage in
+        SlackService.shared.getProfile() { result, errorMessage in
             if let result = result {
                 self.profile = result
-                self.setStatusBarIcon(string: self.profile!.emojiCode())
             }
         }
     }
