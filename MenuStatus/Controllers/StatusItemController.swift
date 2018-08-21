@@ -9,14 +9,16 @@
 import Cocoa
 import OAuthSwift
 
+let profileStatuses = [
+    Profile(statusText: "Working remotely", statusEmoji: ":house_with_garden:"),
+    Profile(statusText: "I'm working at the office", statusEmoji: ":office:")
+]
+
 class StatusItemController {
     var statusBar = NSStatusBar.system
     var statusBarItem : NSStatusItem = NSStatusItem()
     var menu: NSMenu = NSMenu()
-    var status1Profile: Profile?
-    var status1MenuItem : NSMenuItem = NSMenuItem()
-    var status2Profile: Profile?
-    var status2MenuItem : NSMenuItem = NSMenuItem()
+    var statusMenuItems = [StatusMenuItem]()
     var connectMenuItem : NSMenuItem = NSMenuItem()
     var quitMenuItem : NSMenuItem = NSMenuItem()
 
@@ -45,30 +47,16 @@ class StatusItemController {
     init() {
         menu.autoenablesItems = false
 
-        // add statusBarItem
         statusBarItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
         statusBarItem.menu = menu
         setStatusBarIcon()
 
-        status1Profile = Profile(statusText: "Working remotely", statusEmoji: ":house_with_garden:")
-        status1MenuItem.title = "\u{1F3E1} Working remotely"
-        status1MenuItem.target = self
-        status1MenuItem.action = #selector(statusItemAction)
-        status1MenuItem.keyEquivalent = ""
-        status1MenuItem.isEnabled = false
-        status1MenuItem.representedObject = status1Profile
-        menu.addItem(status1MenuItem)
+        for profile in profileStatuses {
+            let statusMenuItem = StatusMenuItem(profile: profile, statusItemController: self)
+            menu.addItem(statusMenuItem.menuItem)
+            statusMenuItems.append(statusMenuItem)
+        }
 
-        status2Profile = Profile(statusText: "I'm working at the office", statusEmoji: ":office:")
-        status2MenuItem.title = "\u{1F3E2} I'm working at the office"
-        status2MenuItem.target = self
-        status2MenuItem.action = #selector(statusItemAction)
-        status2MenuItem.keyEquivalent = ""
-        status2MenuItem.isEnabled = false
-        status2MenuItem.representedObject = status2Profile
-        menu.addItem(status2MenuItem)
-
-        // add menuItem to menu
         connectMenuItem.title = "Sign in"
         connectMenuItem.target = self
         connectMenuItem.action = #selector(signInOut)
@@ -76,13 +64,24 @@ class StatusItemController {
         connectMenuItem.isEnabled = true
         menu.addItem(connectMenuItem)
 
-        // add menuItem to menu
         quitMenuItem.title = "Quit"
         quitMenuItem.target = self
         quitMenuItem.action = #selector(quit)
         quitMenuItem.keyEquivalent = ""
         quitMenuItem.isEnabled = true
         menu.addItem(quitMenuItem)
+    }
+
+    func enableStatusMenuItems() {
+        for item in statusMenuItems {
+            item.enable()
+        }
+    }
+
+    func disableStatusMenuItems() {
+        for item in statusMenuItems {
+            item.disable()
+        }
     }
 
     @objc func statusItemAction(sender: AnyObject) {
@@ -105,8 +104,7 @@ class StatusItemController {
                 self.getProfile(sender: self)
                 timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(getProfile), userInfo: nil, repeats: true)
                 self.connectMenuItem.title = "Sign out"
-                self.status1MenuItem.isEnabled = true
-                self.status2MenuItem.isEnabled = true
+                self.enableStatusMenuItems()
             } else {
                 let oauthswift = OAuth2Swift(
                     consumerKey:    slackAppCreds.client_key,
@@ -127,8 +125,7 @@ class StatusItemController {
                         self.getProfile(sender: self)
                         self.timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.getProfile), userInfo: nil, repeats: true)
                         self.connectMenuItem.title = "Sign out"
-                        self.status1MenuItem.isEnabled = true
-                        self.status2MenuItem.isEnabled = true
+                        self.enableStatusMenuItems()
                 },
                     failure: { (error: Error) in
                         NSLog(error.localizedDescription)
@@ -140,10 +137,8 @@ class StatusItemController {
             self.signedIn = false
             self.connectMenuItem.title = "Sign in"
             setStatusBarIcon()
-            self.status1MenuItem.isEnabled = false
-            self.status2MenuItem.isEnabled = false
+            self.disableStatusMenuItems()
         }
-
     }
 
     @objc func getProfile(sender: AnyObject) {
