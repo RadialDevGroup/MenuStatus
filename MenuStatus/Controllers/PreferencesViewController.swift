@@ -16,11 +16,20 @@ var profileStatuses = [
 
 class PreferencesViewController: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var statusTextTextField: NSTextField!
+    @IBOutlet weak var statusEmojiShortcodeTextField: NSTextField!
+    @IBOutlet weak var statusEmojiUnicodeTextField: NSTextField!
+    @IBOutlet weak var statusEmojiLabelTextField: NSTextField!
+    var selectedProfileStatus: Profile! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.preferredContentSize = NSMakeSize(self.view.frame.size.width, self.view.frame.size.height)
+        if (self.title! == "Statuses") {
+            selectedProfileStatus = profileStatuses[0]
+            updateStatusFields()
+        }
     }
 }
 
@@ -37,15 +46,13 @@ extension PreferencesViewController: NSTableViewDelegate {
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        NSLog("called")
         var text: String = ""
         var cellIdentifier: String = ""
 
         let item = profileStatuses[row]
-        NSLog("\(item.statusText)")
 
         if tableColumn == tableView.tableColumns[0] {
-            text = item.statusText
+            text = "\(item.emojiCode()) \(item.statusText)"
             cellIdentifier = CellIdentifiers.StatusTextCell
         }
 
@@ -54,5 +61,18 @@ extension PreferencesViewController: NSTableViewDelegate {
             return cell
         }
         return nil
+    }
+
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        let selectedItem = tableView.selectedRowIndexes.first
+        selectedProfileStatus = profileStatuses[selectedItem!]
+        updateStatusFields()
+    }
+
+    func updateStatusFields() {
+        statusTextTextField.stringValue = selectedProfileStatus.statusText
+        statusEmojiUnicodeTextField.stringValue = String(format: "%X", selectedProfileStatus.emojiCode().unicodeScalars.first!.value)
+        statusEmojiShortcodeTextField.stringValue = selectedProfileStatus.statusEmoji
+        statusEmojiLabelTextField.stringValue = selectedProfileStatus.emojiCode()
     }
 }
