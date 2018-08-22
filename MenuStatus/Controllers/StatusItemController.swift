@@ -10,11 +10,6 @@ import Cocoa
 
 let slackImage = NSImage(named:NSImage.Name("Slack_Mark_Black_Web"))
 
-let profileStatuses = [
-    Profile(statusText: "Working remotely", statusEmoji: ":house_with_garden:"),
-    Profile(statusText: "I'm working at the office", statusEmoji: ":office:")
-]
-
 class StatusItemController {
     var statusBar = NSStatusBar.system
     var statusBarItem: NSStatusItem = NSStatusItem()
@@ -27,6 +22,7 @@ class StatusItemController {
     var menu: NSMenu = NSMenu()
     var statusMenuItems = [StatusMenuItem]()
     var connectMenuItem: ConnectionMenuItem! = nil
+    var preferencesMenuItem: PreferencesMenuItem! = nil
     var quitMenuItem: NSMenuItem = NSMenuItem()
 
     var profile: Profile? {
@@ -53,6 +49,9 @@ class StatusItemController {
 
         connectMenuItem = ConnectionMenuItem(statusItemController: self)
         menu.addItem(connectMenuItem.menuItem)
+
+        preferencesMenuItem = PreferencesMenuItem(statusItemController: self)
+        menu.addItem(preferencesMenuItem.menuItem)
 
         quitMenuItem.title = "Quit"
         quitMenuItem.target = self

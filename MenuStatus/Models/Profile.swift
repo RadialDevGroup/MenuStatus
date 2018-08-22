@@ -26,8 +26,11 @@ class Profile {
         case ":house_with_garden:":
             iconString = "\u{1F3E1}"
             break
+        case ":no_entry_sign:":
+            iconString = "\u{1F6AB}"
+            break
         default:
-            iconString = nil
+            iconString = "\u{2753}"
         }
         return iconString!
     }
