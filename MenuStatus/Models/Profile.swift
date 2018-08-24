@@ -9,8 +9,8 @@
 import Foundation.NSURL
 
 class Profile {
-    let statusText: String
-    let statusEmoji: String
+    var statusText: String
+    var statusEmoji: String
     
     init(statusText: String, statusEmoji: String) {
         self.statusText = statusText

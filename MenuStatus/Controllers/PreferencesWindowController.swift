@@ -9,8 +9,11 @@
 import Cocoa
 
 class PreferencesWindowController: NSWindowController, NSWindowDelegate {
+    var statusItemController: StatusItemController! = nil
+
     func windowShouldClose(_ sender: NSWindow) -> Bool {
         self.window?.orderOut(sender)
+        statusItemController.refreshStatusMenuItems()
         return false
     }
 }

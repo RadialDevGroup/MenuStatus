@@ -10,11 +10,13 @@ import Foundation
 import Cocoa
 
 class StatusMenuItem {
+    let profile: Profile
     var menuItem: NSMenuItem
     var statusItemController: StatusItemController
 
     init(profile: Profile, statusItemController: StatusItemController) {
         self.statusItemController = statusItemController
+        self.profile = profile
         menuItem = NSMenuItem()
         menuItem.title = "\(profile.emojiCode()) \(profile.statusText)"
         menuItem.target = self
@@ -30,6 +32,10 @@ class StatusMenuItem {
 
     func disable() {
         menuItem.isEnabled = false
+    }
+
+    func refresh() {
+        menuItem.title = "\(profile.emojiCode()) \(profile.statusText)"
     }
 
     @objc func statusItemAction(sender: AnyObject) {

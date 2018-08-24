@@ -76,3 +76,21 @@ extension PreferencesViewController: NSTableViewDelegate {
         statusEmojiLabelTextField.stringValue = selectedProfileStatus.emojiCode()
     }
 }
+
+extension PreferencesViewController: NSTextFieldDelegate {
+    override func controlTextDidChange(_ notification: Notification) {
+        let textField = notification.object as! NSTextField
+        let newValue = textField.stringValue
+        switch (textField.identifier!.rawValue) {
+        case "StatusTextField":
+            selectedProfileStatus.statusText = newValue
+            break
+        case "ShortcodeField":
+            selectedProfileStatus.statusEmoji = newValue
+            break
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
+}

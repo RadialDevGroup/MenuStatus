@@ -73,6 +73,12 @@ class StatusItemController {
         }
     }
 
+    func refreshStatusMenuItems() {
+        for item in statusMenuItems {
+            item.refresh()
+        }
+    }
+
     @objc func quit(sender: AnyObject) {
         NSApp.terminate(self);
     }

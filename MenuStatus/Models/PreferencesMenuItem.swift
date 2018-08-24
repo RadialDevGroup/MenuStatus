@@ -9,7 +9,7 @@
 import Cocoa
 
 class PreferencesMenuItem {
-    var preferencesController: NSWindowController?
+    var preferencesController: PreferencesWindowController?
     var menuItem: NSMenuItem
     var statusItemController: StatusItemController
 
@@ -29,7 +29,8 @@ class PreferencesMenuItem {
         if !(preferencesController != nil) {
             let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Preferences"), bundle: nil)
 
-            preferencesController = storyboard.instantiateInitialController() as? NSWindowController
+            preferencesController = storyboard.instantiateInitialController() as? PreferencesWindowController
+            preferencesController!.statusItemController = statusItemController
         }
 
         if (preferencesController != nil) {
