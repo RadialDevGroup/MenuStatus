@@ -27,7 +27,7 @@ class StatusItemController {
 
     var profile: Profile? {
         didSet {
-            self.statusBarIcon = self.profile!.emojiCode()
+            self.statusBarIcon = String(self.profile!.emojiCode)
         }
     }
 

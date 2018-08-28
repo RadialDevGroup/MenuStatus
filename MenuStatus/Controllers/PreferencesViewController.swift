@@ -21,6 +21,7 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var statusEmojiUnicodeTextField: NSTextField!
     @IBOutlet weak var statusEmojiLabelTextField: NSTextField!
     var selectedProfileStatus: Profile! = nil
+    var selectedProfileIndex: Int! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,7 @@ class PreferencesViewController: NSViewController {
         self.preferredContentSize = NSMakeSize(self.view.frame.size.width, self.view.frame.size.height)
         if (self.title! == "Statuses") {
             selectedProfileStatus = profileStatuses[0]
+            selectedProfileIndex = 0
             updateStatusFields()
         }
     }
@@ -35,7 +37,6 @@ class PreferencesViewController: NSViewController {
 
 extension PreferencesViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        NSLog(String(profileStatuses.count))
         return profileStatuses.count
     }
 }
@@ -52,7 +53,8 @@ extension PreferencesViewController: NSTableViewDelegate {
         let item = profileStatuses[row]
 
         if tableColumn == tableView.tableColumns[0] {
-            text = "\(item.emojiCode()) \(item.statusText)"
+            let displayEmoji = item.recognizedEmoji ? item.emojiCode : "\u{2753}"
+            text = "\(displayEmoji) \(item.statusText)"
             cellIdentifier = CellIdentifiers.StatusTextCell
         }
 
@@ -66,14 +68,16 @@ extension PreferencesViewController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         let selectedItem = tableView.selectedRowIndexes.first
         selectedProfileStatus = profileStatuses[selectedItem!]
+        selectedProfileIndex = selectedItem
         updateStatusFields()
     }
 
     func updateStatusFields() {
         statusTextTextField.stringValue = selectedProfileStatus.statusText
-        statusEmojiUnicodeTextField.stringValue = String(format: "%X", selectedProfileStatus.emojiCode().unicodeScalars.first!.value)
+        statusEmojiUnicodeTextField.stringValue = String(format: "%X", selectedProfileStatus.emojiCode.unicodeScalars.first!.value)
         statusEmojiShortcodeTextField.stringValue = selectedProfileStatus.statusEmoji
-        statusEmojiLabelTextField.stringValue = selectedProfileStatus.emojiCode()
+        let displayEmoji = selectedProfileStatus.recognizedEmoji ? selectedProfileStatus.emojiCode : "\u{2753}"
+        statusEmojiLabelTextField.stringValue = String(displayEmoji)
     }
 }
 
@@ -88,9 +92,26 @@ extension PreferencesViewController: NSTextFieldDelegate {
         case "ShortcodeField":
             selectedProfileStatus.statusEmoji = newValue
             break
+        case "UnicodeField":
+            let nonHex = CharacterSet(charactersIn: "0123456789ABCDEFabcdef").inverted
+            let nonHexRange = newValue.rangeOfCharacter(from: nonHex)
+            let isHex: Bool! = nonHexRange == nil
+            if (!isHex || newValue.count > 6) {
+                textField.stringValue = String(format: "%X", selectedProfileStatus.emojiCode.unicodeScalars.first!.value)
+                return
+            }
+            if (newValue == "") {
+                return
+            }
+
+            let intValue = strtol(newValue, nil, 16)
+
+            selectedProfileStatus.emojiCode = Character(UnicodeScalar(intValue)!)
+            break
         default:
             break
         }
-        tableView.reloadData()
+        tableView.reloadData(forRowIndexes: IndexSet([selectedProfileIndex]), columnIndexes: IndexSet([0]))
+        updateStatusFields()
     }
 }

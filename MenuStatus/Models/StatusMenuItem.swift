@@ -18,7 +18,7 @@ class StatusMenuItem {
         self.statusItemController = statusItemController
         self.profile = profile
         menuItem = NSMenuItem()
-        menuItem.title = "\(profile.emojiCode()) \(profile.statusText)"
+        menuItem.title = "\(profile.emojiCode) \(profile.statusText)"
         menuItem.target = self
         menuItem.action = #selector(statusItemAction)
         menuItem.keyEquivalent = ""
@@ -35,7 +35,7 @@ class StatusMenuItem {
     }
 
     func refresh() {
-        menuItem.title = "\(profile.emojiCode()) \(profile.statusText)"
+        menuItem.title = "\(profile.emojiCode) \(profile.statusText)"
     }
 
     @objc func statusItemAction(sender: AnyObject) {
