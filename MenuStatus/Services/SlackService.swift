@@ -61,6 +61,14 @@ class SlackService {
             errorMessage += "JSONSerialization error: \(parseError.localizedDescription)\n"
             return
         }
+
+        if let ok = response!["ok"] as? Bool {
+            if (!ok) {
+                let error = response!["error"] as? String
+                errorMessage += error!
+                return
+            }
+        }
         
         guard let profile = response!["profile"] as? JSONDictionary else {
             errorMessage += "Dictionary does not contain profile\n"
@@ -75,6 +83,7 @@ class SlackService {
 
     func createDataTask(request: URLRequest, completion: @escaping QueryResult) -> URLSessionDataTask {
         return defaultSession.dataTask(with: request) { data, response, error in
+            self.errorMessage = ""
             if let error = error {
                 self.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
             } else if let data = data,
@@ -85,6 +94,9 @@ class SlackService {
                 DispatchQueue.main.async {
                     completion(self.profile, self.errorMessage)
                 }
+            }
+            if let response = response as? HTTPURLResponse {
+                NSLog("Status code: \(response.statusCode)")
             }
         }
     }

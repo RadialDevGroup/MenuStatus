@@ -106,3 +106,14 @@ func saveTokenToKeychain(token: String) {
         return;
     }
 }
+
+func deleteTokenFromKeychain() {
+    do {
+        let tokenItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName,
+                                             account: "slack-menu-status-token",
+                                             accessGroup: KeychainConfiguration.accessGroup)
+        try tokenItem.deleteItem()
+    } catch {
+        return;
+    }
+}

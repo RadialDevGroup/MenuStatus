@@ -77,8 +77,12 @@ class ConnectionMenuItem {
     @objc func getProfile(sender: AnyObject) {
         NSLog("getProfile called")
         SlackService.shared.getProfile() { result, errorMessage in
-            if let result = result {
+            if let result = result{
                 self.statusItemController.profile = result
+            }
+            if (errorMessage == "token_revoked") {
+                self.connectionAction(sender: self)
+                deleteTokenFromKeychain()
             }
         }
     }
