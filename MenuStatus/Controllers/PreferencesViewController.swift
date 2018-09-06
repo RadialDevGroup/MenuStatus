@@ -33,6 +33,19 @@ class PreferencesViewController: NSViewController {
             updateStatusFields()
         }
     }
+
+    @IBAction func segmentClickAction(_ sender: AnyObject) {
+        NSLog("segmentClickAction")
+        let selectedSegment: Int! = sender.selectedSegment!
+        switch (selectedSegment) {
+        case 0:
+            profileStatuses.append(Profile(statusText: "", statusEmoji: ""))
+            tableView.reloadData()
+            break
+        default:
+            break
+        }
+    }
 }
 
 extension PreferencesViewController: NSTableViewDataSource {

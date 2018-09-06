@@ -74,8 +74,18 @@ class StatusItemController {
     }
 
     func refreshStatusMenuItems() {
+        // bad hack to get enabled / disabled state
+        let enabled: Bool! = statusMenuItems.first?.menuItem.isEnabled
         for item in statusMenuItems {
-            item.refresh()
+            menu.removeItem(item.menuItem)
+        }
+        statusMenuItems.removeAll()
+
+        for (index, profile) in profileStatuses.enumerated() {
+            let statusMenuItem = StatusMenuItem(profile: profile, statusItemController: self)
+            if (enabled) { statusMenuItem.enable() }
+            menu.insertItem(statusMenuItem.menuItem, at: index)
+            statusMenuItems.append(statusMenuItem)
         }
     }
 

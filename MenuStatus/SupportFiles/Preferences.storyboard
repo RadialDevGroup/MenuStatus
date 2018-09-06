@@ -157,10 +157,13 @@
                                     <segments>
                                         <segment image="NSAddTemplate" imageScaling="none"/>
                                         <segment image="NSRemoveTemplate" imageScaling="none" enabled="NO" tag="1"/>
-                                        <segment width="92" enabled="NO">
+                                        <segment width="92" enabled="NO" tag="3">
                                             <nil key="label"/>
                                         </segment>
                                     </segments>
+                                    <connections>
+                                        <action selector="segmentClickAction:" target="og4-No-yl8" id="g6q-H3-ZCV"/>
+                                    </connections>
                                 </segmentedCell>
                             </segmentedControl>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qlM-4e-Agu">
