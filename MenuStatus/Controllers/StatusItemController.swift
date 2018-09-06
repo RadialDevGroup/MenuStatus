@@ -21,6 +21,7 @@ class StatusItemController {
     }
     var menu: NSMenu = NSMenu()
     var statusMenuItems = [StatusMenuItem]()
+    var statusMenuItemsEnabled = false
     var connectMenuItem: ConnectionMenuItem! = nil
     var preferencesMenuItem: PreferencesMenuItem! = nil
     var quitMenuItem: NSMenuItem = NSMenuItem()
@@ -65,17 +66,17 @@ class StatusItemController {
         for item in statusMenuItems {
             item.enable()
         }
+        statusMenuItemsEnabled = true
     }
 
     func disableStatusMenuItems() {
         for item in statusMenuItems {
             item.disable()
         }
+        statusMenuItemsEnabled = false
     }
 
     func refreshStatusMenuItems() {
-        // bad hack to get enabled / disabled state
-        let enabled: Bool! = statusMenuItems.first?.menuItem.isEnabled
         for item in statusMenuItems {
             menu.removeItem(item.menuItem)
         }
@@ -83,7 +84,7 @@ class StatusItemController {
 
         for (index, profile) in profileStatuses.enumerated() {
             let statusMenuItem = StatusMenuItem(profile: profile, statusItemController: self)
-            if (enabled) { statusMenuItem.enable() }
+            if (statusMenuItemsEnabled) { statusMenuItem.enable() }
             menu.insertItem(statusMenuItem.menuItem, at: index)
             statusMenuItems.append(statusMenuItem)
         }
