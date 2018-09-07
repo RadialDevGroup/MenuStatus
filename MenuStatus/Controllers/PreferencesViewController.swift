@@ -8,7 +8,9 @@
 
 import Cocoa
 
-var profileStatuses = [
+var profileStatuses: [Profile] = []
+
+let defaultProfileStatuses = [
     Profile(statusText: "Working remotely", statusEmoji: ":house_with_garden:"),
     Profile(statusText: "I'm working at the office", statusEmoji: ":office:"),
     Profile(statusText: "I'm Blocked", statusEmoji: ":no_entry_sign:")

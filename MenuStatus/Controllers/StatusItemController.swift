@@ -42,6 +42,13 @@ class StatusItemController {
         statusBarItem.menu = menu
         statusBarItem.image = slackImage
 
+        let defaults = UserDefaults.standard
+        if let savedProfileStatuses = defaults.object(forKey: "profileStatuses") as? Data {
+            profileStatuses = NSKeyedUnarchiver.unarchiveObject(with: savedProfileStatuses) as! [Profile]
+        } else {
+            profileStatuses = defaultProfileStatuses
+        }
+
         for profile in profileStatuses {
             let statusMenuItem = StatusMenuItem(profile: profile, statusItemController: self)
             menu.addItem(statusMenuItem.menuItem)

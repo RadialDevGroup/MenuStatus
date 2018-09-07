@@ -26,7 +26,7 @@ func lookupKnownEmojiCode(shortcode: String) -> Character {
     return emojiCode!
 }
 
-class Profile {
+class Profile: NSObject, NSCoding {
     var statusText: String
     var statusEmoji: String
     var emojiCode: Character {
@@ -45,5 +45,22 @@ class Profile {
         } else {
             self.emojiCode = emojiCode
         }
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        statusText = aDecoder.decodeObject(forKey: "statusText") as! String
+        statusEmoji = aDecoder.decodeObject(forKey: "statusEmoji") as! String
+        if let decodedEmojiCode = aDecoder.decodeObject(forKey: "emojiCode") as? String {
+            emojiCode = decodedEmojiCode.first!
+        } else {
+            emojiCode = "\u{2753}"
+        }
+
+    }
+
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(statusText, forKey: "statusText")
+        aCoder.encode(statusEmoji, forKey: "statusEmoji")
+        aCoder.encode(String(emojiCode), forKey: "emojiCode")
     }
 }

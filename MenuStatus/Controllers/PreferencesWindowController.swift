@@ -14,8 +14,9 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     func windowShouldClose(_ sender: NSWindow) -> Bool {
         self.window?.orderOut(sender)
         statusItemController.refreshStatusMenuItems()
+        let savedData = NSKeyedArchiver.archivedData(withRootObject: profileStatuses)
+        let defaults = UserDefaults.standard
+        defaults.set(savedData, forKey: "profileStatuses")
         return false
     }
 }
-
-
