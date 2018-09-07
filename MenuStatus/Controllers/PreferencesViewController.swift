@@ -40,7 +40,12 @@ class PreferencesViewController: NSViewController {
         switch (selectedSegment) {
         case 0:
             profileStatuses.append(Profile(statusText: "", statusEmoji: ""))
-            tableView.reloadData()
+            tableView.beginUpdates()
+            let newStatusIndex = IndexSet(integer: profileStatuses.count-1)
+            tableView.insertRows(at: newStatusIndex, withAnimation: NSTableView.AnimationOptions.effectFade)
+            tableView.endUpdates()
+            tableView.selectRowIndexes(newStatusIndex, byExtendingSelection: false)
+            statusTextTextField.becomeFirstResponder()
             break
         default:
             break
