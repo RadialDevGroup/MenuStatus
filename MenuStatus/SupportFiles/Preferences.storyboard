@@ -255,6 +255,7 @@
                         <outlet property="statusEmojiUnicodeTextField" destination="veG-sh-ziR" id="E8Z-KB-Z1E"/>
                         <outlet property="statusTextTextField" destination="SlP-J2-fPW" id="Rch-rb-HXl"/>
                         <outlet property="tableView" destination="Lrv-uX-uQi" id="EBp-Nu-c9t"/>
+                        <outlet property="tableViewActionSegmentedControl" destination="DD1-Nr-KyA" id="i57-fd-toK"/>
                     </connections>
                 </viewController>
                 <customObject id="OBd-H9-dvf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

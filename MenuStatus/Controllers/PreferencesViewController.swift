@@ -20,6 +20,7 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var statusEmojiShortcodeTextField: NSTextField!
     @IBOutlet weak var statusEmojiUnicodeTextField: NSTextField!
     @IBOutlet weak var statusEmojiLabelTextField: NSTextField!
+    @IBOutlet weak var tableViewActionSegmentedControl: NSSegmentedControl!
     var selectedProfileStatus: Profile! = nil
     var selectedProfileIndex: Int! = nil
 
@@ -47,6 +48,15 @@ class PreferencesViewController: NSViewController {
             tableView.selectRowIndexes(newStatusIndex, byExtendingSelection: false)
             statusTextTextField.becomeFirstResponder()
             break
+        case 1:
+            let selectedItem = tableView.selectedRowIndexes.first
+            profileStatuses.remove(at: selectedItem!)
+            tableView.beginUpdates()
+            let selectedItemIndex = IndexSet(integer: selectedItem!)
+            tableView.removeRows(at: selectedItemIndex, withAnimation: NSTableView.AnimationOptions.effectFade)
+            tableView.endUpdates()
+            let newSelectedItemIndex = IndexSet(integer: selectedItem! == 0 ? 0 : selectedItem!)
+            tableView.selectRowIndexes(newSelectedItemIndex, byExtendingSelection: false)
         default:
             break
         }
@@ -84,8 +94,10 @@ extension PreferencesViewController: NSTableViewDelegate {
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
-        let selectedItem = tableView.selectedRowIndexes.first
-        selectedProfileStatus = profileStatuses[selectedItem!]
+        guard let selectedItem = tableView.selectedRowIndexes.first else {
+            return
+        }
+        selectedProfileStatus = profileStatuses[selectedItem]
         selectedProfileIndex = selectedItem
         updateStatusFields()
     }
@@ -96,6 +108,11 @@ extension PreferencesViewController: NSTableViewDelegate {
         statusEmojiShortcodeTextField.stringValue = selectedProfileStatus.statusEmoji
         let displayEmoji = selectedProfileStatus.recognizedEmoji ? selectedProfileStatus.emojiCode : "\u{2753}"
         statusEmojiLabelTextField.stringValue = String(displayEmoji)
+        if (profileStatuses.count > 1) {
+            tableViewActionSegmentedControl.setEnabled(true, forSegment: 1)
+        } else {
+            tableViewActionSegmentedControl.setEnabled(false, forSegment: 1)
+        }
     }
 }
 
