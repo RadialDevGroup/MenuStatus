@@ -41,21 +41,17 @@ class PreferencesViewController: NSViewController {
         switch (selectedSegment) {
         case 0:
             profileStatuses.append(Profile(statusText: "", statusEmoji: ""))
-            tableView.beginUpdates()
             let newStatusIndex = IndexSet(integer: profileStatuses.count-1)
             tableView.insertRows(at: newStatusIndex, withAnimation: NSTableView.AnimationOptions.effectFade)
-            tableView.endUpdates()
             tableView.selectRowIndexes(newStatusIndex, byExtendingSelection: false)
             statusTextTextField.becomeFirstResponder()
             break
         case 1:
             let selectedItem = tableView.selectedRowIndexes.first
             profileStatuses.remove(at: selectedItem!)
-            tableView.beginUpdates()
             let selectedItemIndex = IndexSet(integer: selectedItem!)
             tableView.removeRows(at: selectedItemIndex, withAnimation: NSTableView.AnimationOptions.effectFade)
-            tableView.endUpdates()
-            let newSelectedItemIndex = IndexSet(integer: selectedItem! == 0 ? 0 : selectedItem!)
+            let newSelectedItemIndex = IndexSet(integer: selectedItem! == 0 ? 0 : selectedItem!-1)
             tableView.selectRowIndexes(newSelectedItemIndex, byExtendingSelection: false)
         default:
             break
