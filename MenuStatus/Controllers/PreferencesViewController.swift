@@ -23,8 +23,11 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var statusEmojiUnicodeTextField: NSTextField!
     @IBOutlet weak var statusEmojiLabelTextField: NSTextField!
     @IBOutlet weak var tableViewActionSegmentedControl: NSSegmentedControl!
+    @IBOutlet weak var tableViewActionMenuSegmentedControl: NSSegmentedControl!
     var selectedProfileStatus: Profile! = nil
     var selectedProfileIndex: Int! = nil
+    var resetDefaultProfilesMenuItem: NSMenuItem!
+    var actionMenu: NSMenu!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +37,19 @@ class PreferencesViewController: NSViewController {
             selectedProfileStatus = profileStatuses[0]
             selectedProfileIndex = 0
             updateStatusFields()
+
+            actionMenu = NSMenu()
+
+            resetDefaultProfilesMenuItem = NSMenuItem()
+            resetDefaultProfilesMenuItem.title = "Reset Defaults"
+            resetDefaultProfilesMenuItem.target = self
+            resetDefaultProfilesMenuItem.action = #selector(resetDefaultsAction)
+            resetDefaultProfilesMenuItem.keyEquivalent = ""
+            resetDefaultProfilesMenuItem.isEnabled = true
+
+            actionMenu.addItem(resetDefaultProfilesMenuItem)
+
+            tableViewActionMenuSegmentedControl.setMenu(actionMenu, forSegment: 0)
         }
     }
 
@@ -58,6 +74,17 @@ class PreferencesViewController: NSViewController {
         default:
             break
         }
+    }
+
+    @objc func resetDefaultsAction(sender: AnyObject) {
+        NSLog("resetDefaultsAction")
+        profileStatuses.removeAll()
+        for profileStatus in defaultProfileStatuses {
+            let newProfileStatus = Profile(statusText: profileStatus.statusText, statusEmoji: profileStatus.statusEmoji)
+            profileStatuses.append(newProfileStatus)
+        }
+        tableView.reloadData()
+        updateStatusFields()
     }
 }
 

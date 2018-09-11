@@ -150,16 +150,13 @@
                                 </scroller>
                             </scrollView>
                             <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DD1-Nr-KyA">
-                                <rect key="frame" x="20" y="19" width="150" height="23"/>
+                                <rect key="frame" x="20" y="17" width="57" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="smallSquare" trackingMode="momentary" id="lRr-vG-9AY">
                                     <font key="font" metaFont="system"/>
                                     <segments>
                                         <segment image="NSAddTemplate" imageScaling="none"/>
                                         <segment image="NSRemoveTemplate" imageScaling="none" enabled="NO" tag="1"/>
-                                        <segment width="92" enabled="NO" tag="3">
-                                            <nil key="label"/>
-                                        </segment>
                                     </segments>
                                     <connections>
                                         <action selector="segmentClickAction:" target="og4-No-yl8" id="g6q-H3-ZCV"/>
@@ -247,6 +244,17 @@
                                     <outlet property="delegate" destination="og4-No-yl8" id="Rcy-cj-xRA"/>
                                 </connections>
                             </textField>
+                            <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nWT-ob-lJT">
+                                <rect key="frame" x="76" y="17" width="94" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="smallSquare" trackingMode="momentary" id="Qgn-Ny-yTM">
+                                    <font key="font" metaFont="system"/>
+                                    <segments>
+                                        <segment image="NSActionTemplate" imageScaling="none"/>
+                                        <segment width="61" tag="1"/>
+                                    </segments>
+                                </segmentedCell>
+                            </segmentedControl>
                         </subviews>
                     </view>
                     <connections>
@@ -255,6 +263,7 @@
                         <outlet property="statusEmojiUnicodeTextField" destination="veG-sh-ziR" id="E8Z-KB-Z1E"/>
                         <outlet property="statusTextTextField" destination="SlP-J2-fPW" id="Rch-rb-HXl"/>
                         <outlet property="tableView" destination="Lrv-uX-uQi" id="EBp-Nu-c9t"/>
+                        <outlet property="tableViewActionMenuSegmentedControl" destination="nWT-ob-lJT" id="QKx-bo-5L1"/>
                         <outlet property="tableViewActionSegmentedControl" destination="DD1-Nr-KyA" id="i57-fd-toK"/>
                     </connections>
                 </viewController>
@@ -264,6 +273,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSHomeTemplate" width="14" height="14"/>
         <image name="NSPreferencesGeneral" width="32" height="32"/>

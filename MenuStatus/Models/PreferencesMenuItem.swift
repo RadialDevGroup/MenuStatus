@@ -34,6 +34,7 @@ class PreferencesMenuItem {
         }
 
         if (preferencesController != nil) {
+            NSApp.activate(ignoringOtherApps: true)
             preferencesController!.showWindow(sender)
         }
     }
