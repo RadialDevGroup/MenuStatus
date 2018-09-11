@@ -7,14 +7,15 @@ This application allows you to easily see and update your Slack status in the OS
 - [Swift](https://swift.org/)
 - [OAuthSwift](https://github.com/OAuthSwift/OAuthSwift)
 - [Sourcery](https://github.com/krzysztofzablocki/Sourcery)
+- [Carthage](https://github.com/Carthage/Carthage)
 
 ## Setup
 
-1. Clone the repo with the `--recurse-submodules` option to get both the project and needed submodules.
+1. Clone the repo.
 1. Install XCode 9.4 or newer.
 1. Install [Sourcery](https://github.com/krzysztofzablocki/Sourcery) and make it available on your path. It is used by the project's Build process to dynamically generate a Swift object with your app's key and secret.
 1. Create a `env-vars.sh` file from the `env-vars.sh.example`. This file is also used to dynamically generate a Swift object available in your application with your app's key and secret. If you are creating your own Slack app for development the app currently needs the `user.profile:read` and `user.profile:write` scopes.
-1. 
+1. Run `carthage update` to build the dependencies.
 
 ## Debugging
 
