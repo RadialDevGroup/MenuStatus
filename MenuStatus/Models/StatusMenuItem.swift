@@ -45,6 +45,14 @@ class StatusMenuItem {
             if let result = result {
                 self.statusItemController.profile = result
             }
+            if (errorMessage != "") {
+                let alert = NSAlert()
+                alert.messageText = "Profile Status failed to update"
+                alert.informativeText = "Server response error: \(errorMessage)"
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: "OK")
+                alert.runModal()
+            }
         }
     }
 }
