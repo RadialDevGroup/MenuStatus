@@ -69,9 +69,15 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="signInAutomaticallyAction:" target="URU-e6-dsS" id="gl3-8d-FWr"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="signInAutomaticallyButton" destination="Pqx-at-Hxk" id="sZf-MP-Clr"/>
+                    </connections>
                 </viewController>
                 <customObject id="Yma-qI-ja3" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
