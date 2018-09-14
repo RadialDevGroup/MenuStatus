@@ -48,6 +48,9 @@ class StatusItemController {
         } else {
             profileStatuses = defaultProfileStatuses
         }
+        if let savedSignInAutomatically = defaults.object(forKey: "signInAutomatically") as? Bool {
+            signInAutomatically = savedSignInAutomatically
+        }
 
         for profile in profileStatuses {
             let statusMenuItem = StatusMenuItem(profile: profile, statusItemController: self)
@@ -57,6 +60,10 @@ class StatusItemController {
 
         connectMenuItem = ConnectionMenuItem(statusItemController: self)
         menu.addItem(connectMenuItem.menuItem)
+
+        if (signInAutomatically) {
+            connectMenuItem.connectionAction(sender: self)
+        }
 
         preferencesMenuItem = PreferencesMenuItem(statusItemController: self)
         menu.addItem(preferencesMenuItem.menuItem)

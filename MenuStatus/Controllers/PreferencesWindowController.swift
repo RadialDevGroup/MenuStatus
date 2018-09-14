@@ -17,6 +17,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         let savedData = NSKeyedArchiver.archivedData(withRootObject: profileStatuses)
         let defaults = UserDefaults.standard
         defaults.set(savedData, forKey: "profileStatuses")
+        defaults.set(signInAutomatically, forKey: "signInAutomatically")
         return false
     }
 }

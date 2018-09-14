@@ -9,6 +9,7 @@
 import Cocoa
 
 var profileStatuses: [Profile] = []
+var signInAutomatically: Bool = false
 
 let defaultProfileStatuses = [
     Profile(statusText: "Working remotely", statusEmoji: ":house_with_garden:"),
@@ -24,6 +25,9 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var statusEmojiLabelTextField: NSTextField!
     @IBOutlet weak var tableViewActionSegmentedControl: NSSegmentedControl!
     @IBOutlet weak var tableViewActionMenuSegmentedControl: NSSegmentedControl!
+
+    @IBOutlet weak var signInAutomaticallyButton: NSButton!
+
     var selectedProfileStatus: Profile! = nil
     var selectedProfileIndex: Int! = nil
     var resetDefaultProfilesMenuItem: NSMenuItem!
@@ -50,6 +54,10 @@ class PreferencesViewController: NSViewController {
             actionMenu.addItem(resetDefaultProfilesMenuItem)
 
             tableViewActionMenuSegmentedControl.setMenu(actionMenu, forSegment: 0)
+        }
+
+        if (self.title! == "General") {
+            signInAutomaticallyButton.state = signInAutomatically ? .on : .off
         }
     }
 
@@ -85,6 +93,10 @@ class PreferencesViewController: NSViewController {
         }
         tableView.reloadData()
         updateStatusFields()
+    }
+
+    @IBAction func signInAutomaticallyAction(_ sender: AnyObject) {
+        signInAutomatically = sender.state == .on ? true : false
     }
 }
 
